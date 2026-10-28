@@ -114,11 +114,13 @@ html[lang="zh-TW"] .display .name-zh{display:block}
 html[lang="zh-TW"] .name-sub-zh{display:none}
 html:not([lang="zh-TW"]) .name-sub-en{display:none}
 .role{margin-top:10px;font-size:15px;color:var(--fg-2)}
-.status-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
-.status{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#fff;border:1px solid var(--line-strong);border-radius:999px;padding:8px 14px 8px 12px}
+.status{display:inline-flex;align-items:center;gap:10px;margin-top:18px;align-self:flex-start;font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#fff;border:1px solid var(--line-strong);border-radius:999px;padding:8px 14px 8px 12px}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(49,238,51,.18)}
-.status.ai{background:#fff;color:#000;border-color:#fff}
-.status.ai svg{width:12px;height:12px}
+.ai-line{display:flex;align-items:baseline;flex-wrap:wrap;gap:0 10px;margin-top:14px;font-family:var(--display);font-size:14px;color:#fff}
+.ai-line svg{width:14px;height:14px;align-self:center;color:#fff;flex:none}
+.ai-line>span{font-weight:600;letter-spacing:.02em}
+.ai-line em{font-style:normal;font-weight:500;font-size:13px;color:var(--fg-3)}
+.ai-line em::before{content:"";display:inline-block;width:18px;height:1px;background:var(--line-strong);vertical-align:middle;margin-right:10px}
 .how-chips{margin-top:16px}
 .skill-list li.lead h3{color:#fff}
 .skill-list li.lead{counter-increment:none}
