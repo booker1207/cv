@@ -1,0 +1,15 @@
+# Provenance of images in this folder (all Booker Liao's own material)
+- leouthe.webp — screenshot of the leouthe.eu brand page, supplied by Booker 2026-10-28, cropped.
+- leouthe-mobile.webp — https://leouthe.eu captured at 430px with headless Chrome, 2026-10-28.
+- fundai.webp — https://fundaitek.com landing page, supplied by Booker 2026-10-28, cropped.
+- fundai-mobile.webp — Fundai mobile dashboard screenshot, supplied by Booker 2026-10-28, cropped to the screen.
+- owly.webp — the new Owly homepage (Booker's Claude artifact, pre-release), rendered locally with headless Chrome at 1440px, 2026-10-28.
+- owly-app.webp — Owly mobile app screenshot, supplied by Booker 2026-10-28.
+- taskquadrant.webp — TaskQuadrant Quadrants screen (Program/TaskQuadrant/app_store_screenshots/iphone/quadrants.png).
+- taskquadrant-today.webp — TaskQuadrant Today screen (Program/TaskQuadrant/app_store_screenshots/iphone/today.png).
+- basketball.webp — Basketball Timer scoreboard screenshot, supplied by Booker.
+- blackjack.webp / blackjack-chart.webp — Blackjack trainer table and strategy chart screenshots, supplied by Booker.
+- stockcalendar-home.webp — StockCalendar home screen (Program/StockCalendar/admin/admanager/frontend/public/ad_preview_screenshot_v2.png), status bar cropped.
+- stockcalendar-cal.webp — StockCalendar calendar screen (Program/StockCalendar/site/assets/screen-3.webp), cropped to the screen.
+- basketball-icon.png — Basketball Timer app icon, cropped from the App Store image.
+- watchers.webp — Telegram screenshot of the IRN_notifyBot alerts, supplied by Booker.
