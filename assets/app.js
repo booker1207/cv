@@ -78,7 +78,7 @@
   const TOOLS = [
     ['Swift', 'swift'], ['Flutter', 'flutter'], ['Dart', 'dart'], ['TypeScript', 'typescript'], ['JavaScript', 'javascript'],
     ['Node.js', 'nodedotjs'], ['React', 'react'], ['Next.js', 'nextdotjs'], ['Expo', 'expo'], ['Vue.js', 'vuedotjs'],
-    ['Nuxt', 'nuxt'], ['Electron', 'electron'], ['Socket.IO', 'socketdotio'], ['Vite', 'vite'], ['Tailwind CSS', 'tailwindcss'],
+    ['Nuxt', 'nuxtdotjs'], ['Electron', 'electron'], ['Socket.IO', 'socketdotio'], ['Vite', 'vite'], ['Tailwind CSS', 'tailwindcss'],
     ['Python', 'python'], ['FastAPI', 'fastapi'], ['SQLAlchemy', 'sqlalchemy'], ['Selenium', 'selenium'], ['Playwright', 'playwright'],
     ['PostgreSQL', 'postgresql'], ['Prisma', 'prisma'], ['SQLite', 'sqlite'], ['Docker', 'docker'], ['Google Cloud', 'googlecloud'],
     ['Nginx', 'nginx'], ['Apache', 'apache'], ['Cloudflare', 'cloudflare'], ['Firebase', 'firebase'], ['Stripe', 'stripe'],
@@ -232,6 +232,22 @@
     });
   }
 
+  /* ---------- Capture mode (screenshots): decode every image before marking ready ---------- */
+  function setupCapture() {
+    const qs = new URL(location.href).searchParams;
+    if (!qs.has('capture')) return;
+    if (qs.get('nav') === '0') html.classList.add('no-nav'); // share-card phone mockup: content only
+    const imgs = [...document.images].filter(i => !i.closest('.tool')); // toolbox icons have a text fallback
+    imgs.forEach(i => { i.decoding = 'sync'; i.loading = 'eager'; });
+    let failed = 0; const bad = [];
+    const settle = img => new Promise(r => {
+      const done = () => { if (!img.naturalWidth) { failed++; bad.push(img.getAttribute('src')); } r(); };
+      const dec = () => (img.decode ? img.decode().catch(() => {}) : Promise.resolve()).then(done);
+      if (img.complete) dec(); else { img.addEventListener('load', dec, { once: true }); img.addEventListener('error', done, { once: true }); }
+    });
+    Promise.all(imgs.map(settle)).then(() => { html.dataset.ready = failed ? 'err' + failed : '1'; if (failed) html.dataset.readyErr = bad.slice(0, 20).join(' '); });
+  }
+
   /* ---------- Boot ---------- */
   checkKeys();
   applyLang(resolveLang(), { animate: false });
@@ -240,4 +256,5 @@
   setupCounts();
   setupLight();
   setupForm();
+  setupCapture();
 })();
