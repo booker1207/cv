@@ -237,6 +237,8 @@
     const qs = new URL(location.href).searchParams;
     if (!qs.has('capture')) return;
     if (qs.get('nav') === '0') html.classList.add('no-nav'); // share-card phone mockup: content only
+    // counters show their final values so a print or screenshot never catches them mid-count
+    document.querySelectorAll('.count').forEach(el => { el.dataset.done = '1'; el.textContent = (el.dataset.count || 0) + (el.dataset.suffix || ''); });
     const imgs = [...document.images].filter(i => !i.closest('.tool')); // toolbox icons have a text fallback
     imgs.forEach(i => { i.decoding = 'sync'; i.loading = 'eager'; });
     let failed = 0; const bad = [];

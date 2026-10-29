@@ -55,7 +55,7 @@ One entrance (`.reveal.pending`, applied by JS only to tiles below the fold at l
 
 ## Print
 
-`@media print` rebuilds the board as a conventional A4 CV (three pages): every tile is hidden and then re-enabled in a fixed order with flex `order` (header with a print-only portrait at top-right, contact line, intro, experience with bullets, expertise in two columns, selected work as a compact list, toolbox as a text line, AI-native workflow, education). White paper, black 1.2px rules under uppercase section titles, 10pt Inter, no chips, images, nav, numbers or footer. The portrait is a separate `img.print-photo` inside the header block (hidden on screen) because an absolutely positioned element inside the multi-page board fragmented into a strip.
+`@media print` keeps the site's language on A4 (three pages): a black rounded header tile (name in Instrument Sans 700 uppercase, Chinese name, role, AI-native line, green status pill, portrait top-right as a print-only `img.print-photo`), a contact line, intro, a three-up stat strip on light grey, then sections titled in the italic uppercase label style under a 1.5px rule: experience with bullets, expertise in two columns with the AI/01–04 counters, selected work as rows with outlined metric chips, toolbox as outlined chips, AI-native workflow, education as three outlined cards, and a footer line. Everything else (nav, screenshots, form, numbers tile on screen) is hidden; order is fixed with flex `order`. Backgrounds need `print-color-adjust: exact`; the PDF exporter (`share/pdf.mjs`) prints through the DevTools protocol with `printBackground` because headless `--print-to-pdf` drops them.
 
 ## Rasters
 
