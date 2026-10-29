@@ -55,7 +55,7 @@ One entrance (`.reveal.pending`, applied by JS only to tiles below the fold at l
 
 ## Print
 
-`@media print` turns the board into a white A4 document: tiles become unboxed sections with 1px rules under headings, the photo sits top-right beside the name, work entries flow in two columns without images, the toolbox prints as a text list, animations and the nav are removed, numbers are forced to their final values (`beforeprint`).
+`@media print` rebuilds the board as a conventional A4 CV (three pages): every tile is hidden and then re-enabled in a fixed order with flex `order` (header with a print-only portrait at top-right, contact line, intro, experience with bullets, expertise in two columns, selected work as a compact list, toolbox as a text line, AI-native workflow, education). White paper, black 1.2px rules under uppercase section titles, 10pt Inter, no chips, images, nav, numbers or footer. The portrait is a separate `img.print-photo` inside the header block (hidden on screen) because an absolutely positioned element inside the multi-page board fragmented into a strip.
 
 ## Rasters
 

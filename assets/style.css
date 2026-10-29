@@ -105,6 +105,7 @@ html.no-nav .nav{display:none}
 
 /* ---------- Row 1 ---------- */
 .name{grid-column:span 5;display:flex;flex-direction:column;justify-content:flex-end;min-height:420px}
+.print-photo{display:none}
 .display{font-family:var(--display);font-weight:700;text-transform:uppercase;line-height:.92;letter-spacing:-.025em;font-size:clamp(52px,6.2vw,88px);text-wrap:balance}
 .display .name-en{display:flex;flex-direction:column}
 .display .name-zh{display:none;font-family:var(--cjk);font-weight:700;letter-spacing:.04em;line-height:1.05}
@@ -358,50 +359,100 @@ a.work{cursor:pointer}
 
 /* ---------- Print: a proper CV on paper ---------- */
 @media print{
-  @page{size:A4;margin:14mm}
-  html,body{background:#fff;color:#111}
-  body{font-size:10pt;line-height:1.38}
-  .board{display:block;max-width:none;padding:0}
-  .tile{background:#fff;border:0;border-radius:0;padding:0;margin:0 0 9mm;overflow:visible;break-inside:avoid;opacity:1;transform:none}
+  @page{size:A4;margin:15mm 16mm}
+  :root{color-scheme:light}
+  html,body{background:#fff!important;color:#111!important}
+  body{font-family:"Inter",var(--cjk),sans-serif;font-size:10pt;line-height:1.4}
+  html[lang="zh-TW"] body{line-height:1.55}
+  /* everything off by default; the CV is assembled from a handful of tiles in a fixed order */
+  .board{display:flex;flex-direction:column;max-width:none;padding:0;gap:0;position:static}
+  .board>*{display:none}
+  .col-a,.col-b{display:contents}
+  .col-a>*,.col-b>*{display:none}
+  .tile{background:#fff;border:0;border-radius:0;padding:0;margin:0;overflow:visible;opacity:1!important;transform:none!important;transition:none!important}
   .tile::before,.tile::after{display:none}
-  .nav,.skip,.marquee,.sig,.kbd,.social,.email,.work .arrow,.status .dot,.avail,.form input,.form textarea,.form .submit,.form .note,.form label,.photo figcaption,.work .media,.work .desc{display:none!important}
-  .reveal{opacity:1!important;transform:none!important;transition:none!important}
-  .job:last-child{display:none}
-  .intro p{font-size:10pt}
-  .experience,.skills,.toolbox,.how,.intro{break-inside:auto}
-  .col-a,.col-b{display:block}
-  p,.intro p,.how p,.job p,.job .org,.job .when,.num-grid span,.foot p,.work .w-kind,.work .w-text,.edu dd,.skill-list p{color:#222}
-  .job .when,.edu dd,.num-grid span{color:#555}
-  .label{break-after:avoid}
-  .h2{font-size:13pt;margin-bottom:4mm;border-bottom:1px solid #111;padding-bottom:1.5mm}
-  .name{min-height:0;display:block}
-  .display{font-size:30pt;line-height:1;color:#000}
-  .name-sub,.role{color:#333}
-  .status{border:0;padding:0;margin-top:2mm;color:#333}
-  .board{position:relative}
-  .name{min-height:44mm;padding-right:42mm}
-  .photo{position:absolute;top:0;right:0;width:34mm;margin:0;aspect-ratio:4/5;min-height:0}
-  .photo img{transform:none;border-radius:2mm}
+  .reveal{opacity:1!important;transform:none!important}
+  .h2{font-family:var(--display),var(--cjk);font-size:11pt;letter-spacing:.08em;color:#000;margin:7mm 0 2.5mm;padding-bottom:1.2mm;border-bottom:1.2px solid #000}
+  p,li,dd,.w-text,.w-kind,.job .org,.skill-list p{color:#222}
+
+  /* 1 header */
+  .name{display:block;order:1;min-height:40mm;padding-right:40mm;position:relative;break-inside:avoid}
+  /* the portrait lives inside the header block so it never fragments across pages */
+  .name .print-photo{display:block;position:absolute;top:0;right:0;width:32mm;height:40mm;object-fit:cover;object-position:50% 20%;border-radius:2mm}
+  .display{font-size:26pt;line-height:1;letter-spacing:-.02em;color:#000}
+  .display .name-en{flex-direction:row;gap:.28em}
+  .name-sub{margin-top:2.5mm;font-size:9.5pt;letter-spacing:.2em;color:#444}
+  .role{margin-top:2mm;font-size:11pt;color:#000;font-weight:500}
+  .ai-line{margin-top:1.5mm;font-size:9.5pt;color:#000}
+  .ai-line svg{color:#000}
+  .ai-line em{color:#555}
+  .ai-line em::before{background:#bbb}
+  .status{display:none}
+  .board .photo{display:none!important}
+  .photo figcaption{display:none}
+  /* 2 contact line (phone + email from the form tile) + intro */
+  .form{display:block;order:2;margin-top:3mm}
+  .form>*{display:none}
+  .form .alt{display:flex;flex-direction:row;flex-wrap:wrap;gap:1mm 7mm;padding:0;margin:0;font-size:9.5pt}
+  .form .alt a{color:#000;border:0}
+  .form .alt::after{content:"bookerliao.dev";color:#000}
+  .intro{display:block;order:3;margin-top:4mm;padding-right:0}
+  .intro p{font-size:10pt;line-height:1.45;color:#222}
+  /* 3 experience */
+  .experience{display:block;order:4;padding:0}
+  .experience .h2{margin-top:6mm}
   .experience .scroll{max-height:none;overflow:visible;padding:0;mask-image:none;-webkit-mask-image:none}
-  .job{border-top:1px solid #ddd;padding:3mm 0}
-  .job ul{color:#222;font-size:9.5pt;margin-top:1.5mm}
-  .job li{margin:1mm 0}
-  .label{min-height:0}.label em{font-size:13pt;border-bottom:1px solid #111;display:block;padding-bottom:1.5mm}
-  .work,.work.tall,.work.wide{min-height:0!important;display:inline-block;width:47%;vertical-align:top;cursor:auto;break-inside:avoid;margin:0 2% 4mm 0;padding-left:0}
-  .work .cap{position:static;padding:0;background:none;display:block}
-  .work .cap-txt{display:block}
-  .work .arrow,.work .soon{display:none}
+  .job{display:block;padding:2.8mm 0;border-top:1px solid #ddd;break-inside:avoid}
+  .job:first-child{border-top:0;padding-top:0}
+  .job h3{font-size:11pt;color:#000;display:inline}
+  .job .org{display:inline;font-style:normal;font-weight:500;font-size:10pt;color:#333}
+  .job .org::before{content:" · "}
+  .job .when{display:block;font-size:9pt;color:#666;margin:.5mm 0 1.5mm}
+  .job p:not(.org):not(.when){font-size:9.5pt;margin-bottom:1mm}
+  .job ul{margin:1mm 0 0;padding-left:4mm;font-size:9.2pt;line-height:1.4;color:#222}
+  .job li{margin:.6mm 0}
+  .job li::marker{color:#888}
+  /* 4 expertise, two columns */
+  .skills{display:block;order:5}
+  .skill-list{display:grid;grid-template-columns:1fr 1fr;column-gap:8mm;row-gap:0}
+  .skill-list li{display:block;padding:1.8mm 0;border-top:1px solid #e5e5e5;break-inside:avoid}
+  .skill-list li::before{display:none}
+  .skill-list li:nth-child(-n+2){border-top:0}
+  .skill-list h3,.skill-list li.lead h3{font-size:10pt;color:#000;margin-bottom:.6mm}
+  .skill-list p{font-size:9.2pt;line-height:1.4}
+  /* 5 selected work as a compact list */
+  .label{display:block;order:6;min-height:0;gap:0}
+  .label h2{margin:0}
+  .label em{font-family:var(--display),var(--cjk);font-style:normal;font-weight:600;font-size:11pt;letter-spacing:.08em;color:#000;display:block;margin:7mm 0 2.5mm;padding-bottom:1.2mm;border-bottom:1.2px solid #000}
   .label p{display:none}
-  .work .w-name{font-size:11.5pt;color:#000}
-  .toolbox .sr-only{position:static;width:auto;height:auto;clip:auto;white-space:normal;display:flex;flex-wrap:wrap;gap:2mm 4mm;list-style:none;color:#333}
-  .skill-list li{border-top:1px solid #ddd}
-  .skill-list li::before{color:#666}
-  .form .alt{display:block;padding:0}
-  .form .alt a{display:inline-block;margin-right:6mm;color:#000}
-  .form .alt a::after{content:""}
-  .edu dl>div{border-top:1px solid #ddd}
-  .num-grid>div{border:0;padding:0;background:#fff}
-  .num-grid b{font-size:20pt;color:#000}
-  .foot{display:block;margin-top:6mm;padding-top:3mm;border-top:1px solid #ddd}
-  a[href^="http"]::after{content:" (" attr(href) ")";font-size:8.5pt;color:#555}
+  .board .work,.board .work.case,.board .work.case.wide,.board .work.case.half,.board .work.app,.board .work.auto{display:block!important;grid-template-columns:none;order:7;min-height:0!important;padding:1.8mm 0;border-top:1px solid #e5e5e5;break-inside:avoid;background:#fff!important;overflow:visible}
+  .work:first-of-type{border-top:0}
+  .work>*{display:none}
+  .board .work .case-copy,.board .work.auto .case-copy,.board .work.case .case-copy,.board .work.app .cap,.board .work .cap,.board .work .cap-txt,.board .work.app .cap-txt{display:block!important;position:static!important;padding:0!important;background:none!important;gap:0;z-index:auto}
+  .board .work.app .media,.board .work .media,.board .work .case-media{display:none!important}
+  .work .desc{display:none}
+  .w-name,.work.app .cap .w-name{display:inline;font-size:10pt;color:#000}
+  .w-kind{display:inline;font-style:normal;font-size:9pt;color:#555;margin:0}
+  .w-kind::before{content:" — "}
+  .w-text,.board .work.case .case-copy .w-text{display:block;font-size:9.2pt;line-height:1.4;color:#222;margin-top:.5mm;max-width:none!important;width:auto}
+  .board .work .case-copy{max-width:none;width:auto}
+  .chips,.work .arrow,.work .soon,.case-media,.auto-media{display:none!important}
+  /* 6 toolbox as a text line */
+  .toolbox{display:block;order:8;gap:0}
+  .toolbox .marquee{display:none}
+  .toolbox .sr-only{position:static;width:auto;height:auto;clip:auto;white-space:normal;display:block;margin:0;padding:0;list-style:none;font-size:9.2pt;line-height:1.5;color:#222}
+  .toolbox .sr-only li{display:inline}
+  .toolbox .sr-only li:not(:last-child)::after{content:" · ";color:#999}
+  /* 7 how I work, education */
+  .how{display:block;order:9}
+  .how p{font-size:9.5pt;line-height:1.45}
+  .how .chips,.how .sig{display:none}
+  .edu{display:block;order:10}
+  .edu dl>div{display:flex;justify-content:space-between;gap:6mm;padding:1.6mm 0;border-top:1px solid #e5e5e5}
+  .edu dl>div:first-child{border-top:0}
+  .edu dt{font-size:10pt;color:#000}
+  .edu dd{font-size:9pt;color:#555}
+  /* never printed */
+  .nav,.skip,.email,.avail,.numbers,.foot,.marquee,.sig,.kbd,.social{display:none!important}
+  a{text-decoration:none;color:inherit}
 }
